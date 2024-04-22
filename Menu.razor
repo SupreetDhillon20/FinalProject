@@ -1,0 +1,152 @@
+﻿<!--Project Name: Restaurant Management System-->
+<!--OOP Final project-->
+<!--Project Developers: Khushpreet Kaur, Supreet Dhillon-->
+<!--Submitted to: Mehdi Shokrani-->
+<!--Implements classes, abstract classes, interfaces, exception, Maui app-->
+
+@page "/"
+@using RestaurantApp.Components.Shared
+
+<!--Our logo and restaurant name, description, opening hours-->
+
+<img src="./Flavour.png" alt="Flavour Junction Logo" style="width:100px;height:70px;">
+<h1>
+    Flavour Junction
+</h1>
+
+<p>
+    Welcome to Flavour Junction, the restaurant you will love to come again. A TASTE OF DIFFERENT FLAVORS, CULTURES AND CREATIVITY IN ONE PLACE.
+</p>
+<br />
+
+<h3>Our Philosophy</h3>
+<p>
+    We are about more than just food! At Flavor Junction, it's about an experience marked by exceptional flavors, a warm and welcoming ambiance, and culinary mastery. We are committed to providing our customers with the best possible take-away experience.
+</p>
+<br />
+
+<h3>Location</h3>
+<p>4250 18 Ave NE #102 Calgary <br>AB, T1Y 1N9</p>
+<br />
+
+<h3>Contact Us</h3>
+<ul>
+    <li>(368)XXX-XX92</li>
+    <li>(587)XXX-XX47</li>
+    <li>(587)XXX-XX62</li>
+</ul>
+<br />
+
+<h3>Opening Hours</h3>
+<ul>
+    <li>Monday - Thursday: 8AM - 10 PM</li>
+    <li>Friday - Sunday: 7AM - 12 AM</li>
+</ul>
+<br />
+
+
+<!--Menu of our take-away restaurant-->
+<h3>Menu</h3>
+<br />
+
+<h4>Breakfast</h4>
+<br />
+<div class="menu-category">
+    @foreach (var item in MenuItems.Where(i => i.Category == "Breakfast"))
+    {
+        <div class="menu-item">
+            <img src="@item.ImageUrl" alt="@item.Name" style="width:100px;height:70px;" />
+            <div class="menu-item-details">
+                <span>@item.Name - $@item.Price</span>
+            </div>
+        </div>
+    }
+</div>
+<br />
+
+<h4>Lunch</h4>
+<br />
+<div class="menu-category">
+    @foreach (var item in MenuItems.Where(i => i.Category == "Lunch"))
+    {
+        <div class="menu-item">
+            <img src="@item.ImageUrl" alt="@item.Name" style="width:100px;height:70px;" />
+            <div class="menu-item-details">
+                <span>@item.Name - $@item.Price</span>
+            </div>
+        </div>
+    }
+</div>
+<br />
+
+<h4>Dinner</h4>
+<br />
+<div class="menu-category">
+    @foreach (var item in MenuItems.Where(i => i.Category == "Dinner"))
+    {
+        <div class="menu-item">
+            <img src="@item.ImageUrl" alt="@item.Name" style="width:100px;height:70px;" />
+            <div class="menu-item-details">
+                <span>@item.Name - $@item.Price</span>
+            </div>
+        </div>
+    }
+</div>
+<br />
+
+<h4>Drinks</h4>
+<div class="menu-category">
+    @foreach (var item in MenuItems.Where(i => i.Category == "Drinks"))
+    {
+        <div class="menu-item">
+            <img src="@item.ImageUrl" alt="@item.Name" style="width:100px;height:70px;" />
+            <div class="menu-item-details">
+                <span>@item.Name - $@item.Price</span>
+            </div>
+        </div>
+    }
+</div>
+<br />
+
+<h4>Dessert</h4>
+<br />
+<div class="menu-category">
+    @foreach (var item in MenuItems.Where(i => i.Category == "Dessert"))
+    {
+        <div class="menu-item">
+            <img src="@item.ImageUrl" alt="@item.Name" style="width:100px;height:70px;" />
+            <div class="menu-item-details">
+                <span>@item.Name - $@item.Price</span>
+            </div>
+        </div>
+    }
+</div>
+
+
+@code {
+    // Instanciation of MenuItem to display menu
+    List<MenuItem> MenuItems = new List<MenuItem>
+    {
+        new MenuItem { Name = "Blue Berry Pancakes", Price = 9.25m, ImageUrl = "./pancake.png", Category = "Breakfast" },
+        new MenuItem { Name = "French Toast N Eggs", Price = 9.45m, ImageUrl = "./toast.png", Category = "Breakfast" },
+        new MenuItem { Name = "Waffle Alaska", Price = 10.25m, ImageUrl = "./waffle.png", Category = "Breakfast" },
+        new MenuItem { Name = "Sandwich", Price = 7.99m, ImageUrl = "./sandwitch.png", Category = "Breakfast" },
+        new MenuItem { Name = "Pizza", Price = 12.99m, ImageUrl = "./pizza.png", Category = "Lunch" },
+        new MenuItem { Name = "Wraps", Price = 7.99m, ImageUrl = "./wraps.png", Category = "Lunch" },
+        new MenuItem { Name = "Pasta", Price = 11.99m, ImageUrl = "./pasta.png", Category = "Dinner" },
+        new MenuItem { Name = "Burger", Price = 7.75m, ImageUrl = "./burger.png", Category = "Lunch" },
+        new MenuItem { Name = "Burrito", Price = 7.25m, ImageUrl = "./burrito.png", Category = "Lunch" },
+        new MenuItem { Name = "Spaghetti", Price = 13.99m, ImageUrl = "./spaghetti.png", Category = "Dinner" },
+        new MenuItem { Name = "Grilled Hamburger steak", Price = 10.99m, ImageUrl = "./steak.png", Category = "Dinner" },
+        new MenuItem { Name = "Salted Caramel Apple Tart", Price = 11.99m, ImageUrl = "./tart.png", Category = "Dessert" },
+        new MenuItem { Name = "Tiramisu", Price = 9.99m, ImageUrl = "./tiramisu.png", Category = "Dessert" },
+        new MenuItem { Name = "Chocolate Lava Cake", Price = 10.99m, ImageUrl = "./cake.png", Category = "Dessert" },
+        new MenuItem { Name = "Chocolate Brownie Sundae", Price = 9.99m, ImageUrl = "./brownie.png", Category = "Dessert" },
+        new MenuItem { Name = "Coffee", Price = 5.99m, ImageUrl = "./coffee.png", Category = "Drinks" },
+        new MenuItem { Name = "Tea", Price = 4.99m, ImageUrl = "./tea.png", Category = "Drinks" },
+        new MenuItem { Name = "Orange Juice", Price = 3.99m, ImageUrl = "./juice.png", Category = "Drinks" },
+        new MenuItem { Name = "Soft Drink", Price = 3.99m, ImageUrl = "./drinks.png", Category = "Drinks" }
+    };
+}
+
+

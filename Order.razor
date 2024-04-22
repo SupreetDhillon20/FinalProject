@@ -1,0 +1,215 @@
+﻿@using MenuItem = RestaurantApp.Components.Shared.MenuItem
+@page "/order"
+@using System.Threading.Tasks
+@using RestaurantApp.Components.Shared
+@using System.Text
+@using Microsoft.Maui.Controls
+@inject NavigationManager NavigationManager
+
+<h1>Order</h1>
+
+<!--Asking customer's name -->
+<input type="text" @bind="CustomerName" placeholder="Enter your name" />
+<br />
+<br />
+
+<!-- Displaying menu items with +/- buttons -->
+<div>
+    <h3>Breakfast</h3><br />
+    @foreach (var item in MenuItems.Where(i => i.Category == "Breakfast"))
+    {
+        <ul>
+            <li>
+                <span>@item.Name - $@item.Price</span> &emsp;
+                <button type="button" class="btn btn-warning btn-xs" @onclick="() => AddItem(item)">+</button>
+                <span>@item.Quantity</span>
+                <button class="btn btn-warning btn-xs" @onclick="() => RemoveItem(item)">-</button>
+                <br /><br />
+            </li>
+        </ul>
+    }
+</div>
+
+<div>
+    <h3>Lunch</h3><br />
+    @foreach (var item in MenuItems.Where(i => i.Category == "Lunch"))
+    {
+        <ul>
+            <li>
+                <span>@item.Name - $@item.Price</span> &emsp;
+                <button type="button" class="btn btn-warning btn-xs" @onclick="() => AddItem(item)">+</button>
+                <span>@item.Quantity</span>
+                <button class="btn btn-warning btn-xs" @onclick="() => RemoveItem(item)">-</button>
+                <br /><br />
+            </li>
+        </ul>
+    }
+</div>
+
+<div>
+    <h3>Dinner</h3><br />
+    @foreach (var item in MenuItems.Where(i => i.Category == "Dinner"))
+    {
+        <ul>
+            <li>
+                <span>@item.Name - $@item.Price</span> &emsp;
+                <button type="button" class="btn btn-warning btn-xs" @onclick="() => AddItem(item)">+</button>
+                <span>@item.Quantity</span>
+                <button class="btn btn-warning btn-xs" @onclick="() => RemoveItem(item)">-</button>
+                <br /><br />
+            </li>
+        </ul>
+    }
+</div>
+
+<div>
+    <h3>Drinks</h3><br />
+    @foreach (var item in MenuItems.Where(i => i.Category == "Drinks"))
+    {
+        <ul>
+            <li>
+                <span>@item.Name - $@item.Price</span> &emsp;
+                <button type="button" class="btn btn-warning btn-xs" @onclick="() => AddItem(item)">+</button>
+                <span>@item.Quantity</span>
+                <button class="btn btn-warning btn-xs" @onclick="() => RemoveItem(item)">-</button>
+                <br /><br />
+            </li>
+        </ul>
+    }
+</div>
+
+<div>
+    <h3>Dessert</h3><br />
+    @foreach (var item in MenuItems.Where(i => i.Category == "Dessert"))
+    {
+        <ul>
+            <li>
+                <span>@item.Name - $@item.Price</span> &emsp;
+                <button type="button" class="btn btn-warning btn-xs" @onclick="() => AddItem(item)">+</button>
+                <span>@item.Quantity</span>
+                <button class="btn btn-warning btn-xs" @onclick="() => RemoveItem(item)">-</button>
+                <br /><br />
+            </li>
+        </ul>
+    }
+</div>
+
+<!-- Order button -->
+<button class="btn btn-primary" @onclick="PlaceOrder">Place Order</button>
+
+@code {
+    string CustomerName { get; set; }
+
+    List<IMenuItem> MenuItems = new List<IMenuItem>
+    {
+        new MenuItem { Name = "Blue Berry Pancakes", Price = 9.25m, ImageUrl = "pancake.jpg", Category = "Breakfast" },
+        new MenuItem { Name = "French Toast N Eggs", Price = 9.45m, ImageUrl = "toast.jpg", Category = "Breakfast" },
+        new MenuItem { Name = "Waffle Alaska", Price = 10.25m, ImageUrl = "waffle.jpg", Category = "Breakfast" },
+        new MenuItem { Name = "Sandwich", Price = 7.99m, ImageUrl = "sandwitch.jpg", Category = "Breakfast" },
+        new MenuItem { Name = "Pizza", Price = 12.99m, ImageUrl = "pizza.jpg", Category = "Lunch" },
+        new MenuItem { Name = "Wraps", Price = 7.99m, ImageUrl = "wraps.jpg", Category = "Lunch" },
+        new MenuItem { Name = "Pasta", Price = 11.99m, ImageUrl = "pasta.jpg", Category = "Dinner" },
+        new MenuItem { Name = "Burger", Price = 7.75m, ImageUrl = "burger.jpg", Category = "Lunch" },
+        new MenuItem { Name = "Burrito", Price = 7.25m, ImageUrl = "burrito.jpg", Category = "Lunch" },
+        new MenuItem { Name = "Spaghetti", Price = 13.99m, ImageUrl = "spaghetti.jpg", Category = "Dinner" },
+        new MenuItem { Name = "Grilled Hamburger steak", Price = 10.99m, ImageUrl = "steak.jpg", Category = "Dinner" },
+        new MenuItem { Name = "Salted Caramel Apple Tart", Price = 11.99m, ImageUrl = "tart.jpg", Category = "Dessert" },
+        new MenuItem { Name = "Tiramisu", Price = 9.99m, ImageUrl = "tiramisu.jpg", Category = "Dessert" },
+        new MenuItem { Name = "Chocolate Lava Cake", Price = 10.99m, ImageUrl = "cake.jpg", Category = "Dessert" },
+        new MenuItem { Name = "Chocolate Brownie Sundae", Price = 9.99m, ImageUrl = "brownie.jpg", Category = "Dessert" },
+        new MenuItem { Name = "Coffee", Price = 5.99m, ImageUrl = "coffee.jpg", Category = "Drinks" },
+        new MenuItem { Name = "Tea", Price = 4.99m, ImageUrl = "tea.jpg", Category = "Drinks" },
+        new MenuItem { Name = "Orange Juice", Price = 3.99m, ImageUrl = "juice.jpg", Category = "Drinks" },
+        new MenuItem { Name = "Soft Drink", Price = 3.99m, ImageUrl = "drinks.jpg", Category = "Drinks" }
+    };
+
+    // Add a menuitem method
+    void AddItem(IMenuItem item)
+    {
+        item.Quantity++;
+    }
+
+    // Remove a menuitem method
+    void RemoveItem(IMenuItem item)
+    {
+        if (item.Quantity > 0)
+        {
+            item.Quantity--;
+        }
+    }
+
+    // Method to calculate total cost of order
+    decimal CalculateTotalCost()
+    {
+        decimal totalCost = 0;
+
+        foreach (var item in MenuItems)
+        {
+            totalCost += item.Price * item.Quantity;
+        }
+
+        return totalCost;
+    }
+
+    // Method to display order details in order confirmation page
+    void PlaceOrder()
+    {
+        try
+        {
+
+            if (!ValidCustomerName(CustomerName))
+            {
+                throw new InvalidInputException("Invalid customer name. Please enter only alphabetic characters.");
+            }
+
+            int orderId = GenerateOrderId();
+            string orderDetails = $"Order for {CustomerName}: \n";
+            foreach (var item in MenuItems)
+            {
+                if (item.Quantity > 0)
+                {
+                    orderDetails += $"{item.Name} x {item.Quantity} - ${item.Price * item.Quantity}\n";
+                }
+            }
+            decimal totalCost = MenuItems.Sum(item => item.Price * item.Quantity);
+            orderDetails += $"\nTotal: ${totalCost}";
+
+            NavigationManager.NavigateTo($"confirm/{orderId}/{orderDetails}");
+        }
+        catch (InvalidInputException ex)
+        {
+            // Display error message using AlertDialog
+            Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+        }
+    }
+
+    // Method to validate the customer name
+    bool ValidCustomerName(string name)
+    {
+        foreach (char letter in name)
+        {
+            if (!char.IsLetter(letter) && !char.IsWhiteSpace(letter))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Method to generate a unique order ID of 4 digits
+    int GenerateOrderId()
+    {
+        Random random = new Random();
+        return random.Next(1000, 10000);
+    }
+
+    //InvalidInputException inhertitance from Exception class
+    public class InvalidInputException : Exception
+    {
+        public InvalidInputException(string message) : base(message) { }
+    }
+}
+
+
+
+

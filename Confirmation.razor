@@ -1,0 +1,23 @@
+﻿@page "/confirm/{orderId}/{orderDetails}"
+
+<!--It will display order sucessful message along with order id and items ordered with total cost-->
+<h1>Order Successful</h1>
+<p>Order ID: @OrderId</p>
+
+<p>@OrderDetails</p>
+
+<!--Button to place new order-->
+<a href="/order" class="btn btn-primary">Place New Order</a>
+
+@code {
+    [Parameter]
+    public string OrderDetails { get; set; }
+
+    [Parameter]
+    public string OrderId { get; set; }
+}
+
+
+
+
+
